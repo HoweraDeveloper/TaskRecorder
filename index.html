@@ -1,372 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Recorder</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f4f8;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            width: 400px;
-        }
-
-        .input-section {
-            display: flex;
-            margin-bottom: 20px;
-        }
-
-        .input-section input,
-        .input-section select {
-            flex-grow: 1;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
-
-        .input-section button {
-            padding: 10px;
-            font-size: 20px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 40px; /* Smaller button width */
-        }
-
-        .input-section button:hover {
-            background-color: #2980b9;
-        }
-
-        .task-list {
-            margin-top: 20px;
-        }
-
-        .task {
-            padding: 10px;
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #ecf0f1;
-        }
-
-        .task button {
-            padding: 5px 10px;
-            font-size: 14px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-
-        .start-button {
-            background-color: #27ae60;
-            color: white;
-        }
-
-        .start-button:hover {
-            background-color: #2ecc71;
-        }
-
-        .end-button {
-            background-color: #e74c3c;
-            color: white;
-        }
-
-        .end-button:hover {
-            background-color: #c0392b;
-        }
-
-        .controls {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        .controls button {
-            padding: 10px;
-            background-color: #f39c12;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .controls button:hover {
-            background-color: #e67e22;
-        }
-
-        .footer {
-            margin-top: 20px;
-            padding: 10px;
-            width: 100%;
-            background-color: #ecf0f1;
-            border-radius: 5px;
-            height: 150px;
-            overflow-y: auto; /* Scrollable footer */
-        }
-
-        .date-header {
-            font-weight: bold;
-            margin-top: 10px;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/f94750c57c.js" crossorigin="anonymous"></script>
+    <link href="./assets/styles.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 
-    <h1>Task Recorder</h1>
-    <small><i>📝 A materialistic Task Recorder, designed for low friction! 📝</i></small><br>
-    <div class="container">
-        <div class="input-section">
-            <input type="text" id="taskName" placeholder="Enter Task Name">
-            <select id="taskTag">
-                <option value="[Work]">[Work]</option>
-                <option value="[Rest]">[Rest]</option>
-                <option value="[Meal]">[Meal]</option>
-            </select>
-            <button onclick="addTask()">+</button> <!-- Changed to plus sign -->
-        </div>
-
-        <div id="taskList" class="task-list"></div>
-
-        <div class="controls">
-            <button onclick="downloadTasks()">Download</button>
-            <button onclick="clearTasks()">Clear</button>
-            <button onclick="document.getElementById('fileInput').click()">Import</button>
-            <input type="file" id="fileInput" accept=".txt" style="display:none;" onchange="importTasks(event)">
-        </div>
+    <!-- Theme Icon -->
+    <div class="theme-icon" onclick="toggleTheme()">
+        <i class="fa-solid fa-sun"></i>
     </div>
 
-    <h1>Record</h1>
-    <div class="footer" id="footerLog"></div>
+    <div class="container">
+        <div class="card mt-4 p-4">
+            <h1 class="text-center text-primary"><i class="fa-regular fa-clipboard"></i> Task Recorder</h1>
+            <p class="text-center text-muted">A materialistic Task Recorder, designed for low friction.</p>
+            <div class="mb-3 input-group">
+                <input type="text" id="taskName" class="form-control" placeholder="Enter Subject Name">
+                <select id="taskTag" class="form-select">
+                    <option value="[Work]">[Work]</option>
+                    <option value="[Rest]">[Rest]</option>
+                    <option value="[Meal]">[Meal]</option>
+                </select>
+                <button class="btn btn-success" onclick="addTask()"><i class="fa-solid fa-plus"></i> Add
+                    Subject</button>
+            </div>
 
-    <script>
-        let tasks = [];
-        let currentTaskIndex = null;
-        let completedTasks = {};
+            <div id="taskList" class="task-list">
+                <p class="text-center fw-bold"><i class="fa-solid fa-arrow-down"></i> Your subjects will be here.</p>
+            </div>
 
-        function addTask() {
-            const taskName = document.getElementById('taskName').value;
-            const taskTag = document.getElementById('taskTag').value;
+            <div class="d-flex justify-content-between mt-4">
+                <button class="btn btn-success" onclick="downloadTasks()"><i class="fa-solid fa-file-export"></i>
+                    Export</button>
+                <button class="btn btn-danger" onclick="clearTasks()"><i class="fa-solid fa-trash"></i> Clear</button>
+                <button class="btn btn-secondary" onclick="document.getElementById('fileInput').click()"><i
+                        class="fa-solid fa-file-import"></i> Import</button>
+                <input type="file" id="fileInput" accept=".txt" style="display:none;" onchange="importTasks(event)">
+            </div>
+        </div>
 
-            // Allow empty task only if the tag is [Rest]
-            if (taskName.trim() === "" && taskTag !== "[Rest]") {
-                alert("You can only add an empty task with the [Rest] tag!");
-                return;
-            }
+        <div class="card mt-4 p-4">
+            <h2 class="text-center text-success"><i class="fa-solid fa-book"></i> Record</h2>
+            <div class="footer bg-light p-3" id="footerLog">
+                <p class="text-center fw-bold"><i class="fa-solid fa-arrow-down"></i> Your tasks will be here!</p>
+            </div>
+        </div>
 
-            const task = {
-                name: taskName || "(Rest)",
-                tag: taskTag,
-                startTime: null,
-                endTime: null
-            };
-
-            tasks.push(task);
-            document.getElementById('taskName').value = "";
-            renderTasks();
-        }
-
-        function startTask(index) {
-            if (currentTaskIndex !== null) {
-                alert("You are already working on a task!");
-                return;
-            }
-
-            const now = new Date();
-            tasks[index].startTime = now;
-            currentTaskIndex = index;
-            renderTasks();
-        }
-
-        function endTask(index) {
-            if (currentTaskIndex === null || currentTaskIndex !== index) {
-                alert("You have not started this task!");
-                return;
-            }
-
-            const now = new Date();
-            tasks[index].endTime = now;
-            currentTaskIndex = null;
-
-            renderTasks();
-
-            // After 5 seconds, move the task to the footer
-            setTimeout(() => {
-                moveTaskToFooter(index);
-                tasks[index].startTime = null;
-                tasks[index].endTime = null;
-                renderTasks();
-            }, 1000);
-        }
-
-        function moveTaskToFooter(index) {
-            const task = tasks[index];
-            const recordDate = new Date().toISOString().split('T')[0].replace(/-/g, '/'); // Format as YYYY/MM/DD
-
-            if (!completedTasks[recordDate]) {
-                completedTasks[recordDate] = [];
-            }
-
-            const record = `${formatTime(task.startTime)} ~ ${formatTime(task.endTime)} | ${task.name} ${task.tag}`;
-            completedTasks[recordDate] = insertInChronologicalOrder(completedTasks[recordDate], record);
-            updateFooter();
-        }
-
-        function renderTasks() {
-            const taskList = document.getElementById('taskList');
-            taskList.innerHTML = "";
-
-            tasks.forEach((task, index) => {
-                const taskElement = document.createElement('div');
-                taskElement.classList.add('task');
-
-                let taskText = task.startTime ? 
-                    `${formatTime(task.startTime)} ~ ${task.endTime ? formatTime(task.endTime) : "??:??"} | ${task.name} ${task.tag}` : 
-                    `${task.name} ${task.tag} (Not Started)`;
-
-                taskElement.innerHTML = `
-                    <span>${taskText}</span>
-                    <div>
-                        <button class="start-button" onclick="startTask(${index})">Start</button>
-                        <button class="end-button" onclick="endTask(${index})">End</button>
-                    </div>
-                `;
-
-                taskList.appendChild(taskElement);
-            });
-        }
-
-        function formatTime(date) {
-            return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
-        }
-
-        function updateFooter() {
-            const footer = document.getElementById('footerLog');
-            footer.innerHTML = "";
-
-            Object.keys(completedTasks).forEach(date => {
-                const dateHeader = document.createElement('div');
-                dateHeader.classList.add('date-header');
-                dateHeader.innerText = `# ${date}`;
-                footer.appendChild(dateHeader);
-
-                completedTasks[date].forEach(record => {
-                    const recordElement = document.createElement('div');
-                    recordElement.innerText = record;
-                    footer.appendChild(recordElement);
-                });
-            });
-        }
-
-        function downloadTasks() {
-            let text = "";
-
-            Object.keys(completedTasks).forEach(date => {
-                text += `# ${date}\n`;
-                completedTasks[date].forEach(record => {
-                    text += `${record}\n`;
-                });
-            });
-
-            const now = new Date();
-            const filename = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}-${String(now.getMinutes()).padStart(2, '0')}_Record.txt`; // Updated format
-
-            const blob = new Blob([text], { type: 'text/plain' });
-            const link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.download = filename;
-            link.click();
-        }
-
-        function clearTasks() {
-            tasks = [];
-            completedTasks = {};
-            renderTasks();
-            updateFooter();
-        }
-
-        function importTasks(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                const contents = e.target.result;
-                const lines = contents.split('\n');
-                let currentDate = '';
-
-                lines.forEach(line => {
-                    if (line.startsWith('#')) {
-                        currentDate = line.slice(2);
-                        if (!completedTasks[currentDate]) {
-                            completedTasks[currentDate] = [];
-                        }
-                    } else if (line.trim()) {
-                        completedTasks[currentDate] = insertInChronologicalOrder(completedTasks[currentDate], line.trim());
-
-                        // Extract task name and tag from the line and add it to the task list if it doesn't exist
-                        const taskMatch = line.match(/\| (.*?) (\[.*?\])$/);
-                        if (taskMatch) {
-                            const [ , taskName, taskTag ] = taskMatch;
-
-                            if (!tasks.some(task => task.name === taskName && task.tag === taskTag)) {
-                                tasks.push({
-                                    name: taskName,
-                                    tag: taskTag,
-                                    startTime: null,
-                                    endTime: null
-                                });
-                            }
-                        }
-                    }
-                });
-
-                updateFooter();
-                renderTasks();
-            };
-
-            reader.readAsText(file);
-        }
-
-        function insertInChronologicalOrder(records, newRecord) {
-            const [newStartTime] = newRecord.split(' ~ ');
-            for (let i = 0; i < records.length; i++) {
-                const [existingStartTime] = records[i].split(' ~ ');
-                if (newStartTime < existingStartTime) {
-                    records.splice(i, 0, newRecord);
-                    return records;
-                }
-            }
-            records.push(newRecord);
-            return records;
-        }
-    </script>
-
+        <!-- Footer Note -->
+        <div class="footer-note">
+            Created by Cliff Chiang. Please do not copy my code even though this project is open-source.
+        </div>
+    </div>
+    <script src="./assets/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

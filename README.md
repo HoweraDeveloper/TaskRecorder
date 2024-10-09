@@ -22,5 +22,7 @@ We would then optionally write the portion of the subject that we actually studi
 ## To-do
 - Add a multi-line description to the current session.
 - Update terminologies used on the page to match the README.
+- Recreate the UI (?)
+- Add scheduling.
 
 There is obviously more to come, so please stay tuned!

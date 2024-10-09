@@ -1,0 +1,61 @@
+.card {
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+}
+
+.task-list .task {
+    background-color: #e9ecef;
+    border-radius: 0.375rem;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer {
+    height: 200px;
+    overflow-y: auto;
+}
+
+.date-header {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.theme-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.footer-note {
+    background-color: #ffc107;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 0.5rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dark-mode .task-list .task {
+    background-color: #6c757d;
+}
+
+.dark-mode .footer-note {
+    background-color: #ffdf7e;
+}
+
+.theme-icon {
+    color: #f39c12;
+}
+
+.dark-mode .theme-icon {
+    color: #f1c40f;
+}
+
+.schedule-input {
+    margin-right: 10px;
+}
